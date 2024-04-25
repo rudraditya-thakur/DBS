@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+</head>
+<body>
+    <h2>Menu</h2>
+    <ul>
+        {% for item in menu %}
+        <li>
+            {{ item.item_name }} - ${{ item.price }}
+            <p>{{item.description}}</p>
+            <p>{{item.category}}</p>
+            <form action="/add_to_cart" method="POST" style="display: inline;">
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <button type="submit">Add to Cart</button>
+            </form>
+            <form action="/remove_from_cart" method="POST" style="display: inline;">
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <button type="submit">Remove from Cart</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/view_cart">View Cart</a>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

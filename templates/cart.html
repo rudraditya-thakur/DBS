@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+<body>
+    <h2>Cart</h2>
+    <ul>
+        {% for item_id in cart_items %}
+        <li>
+            Item Name: {{ item_id.item_name }}
+            Item Price: {{ item_id.price }}
+            <form action="/remove_from_cart" method="POST" style="display: inline;">
+                <input type="hidden" name="item_id" value="{{ item_id.id }}">
+                <button type="submit">Remove from Cart</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/menu">Back to Menu</a>
+    <form action="/place_order" method="POST">
+        <button type="submit">Place Order</button>
+    </form>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>
