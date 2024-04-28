@@ -4,50 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .table-container {
+            max-height: 400px; /* Adjust height as needed */
+            overflow-y: auto;
+            width: 80%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #555;
+        }
+
+        td:last-child {
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form:last-child {
+            margin-bottom: 0;
+        }
+
+        form.inline {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Inventory</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Item Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in inventory_items %}
-            <tr>
-                <td>{{ item[0] }}</td>
-                <td>{{ item[1] }}</td>
-                <td>{{ item[2] }}</td>
-                <td>{{ item[3] }}</td>
-                <td>
-                    <form action="/delete_item/{{ item[0] }}" method="POST" style="display: inline;">
-                        <button type="submit">Delete</button>
-                    </form>
-                    <form action="/update_item/{{ item[0] }}" method="POST" style="display: inline;">
-                        <label for="quantity">Quantity:</label>
-                        <input type="number" id="quantity" name="quantity" value="{{ item[2] }}" required><br>
-                        <label for="price">Price:</label>
-                        <input type="number" id="price" name="price" step="0.01" value="{{ item[3] }}" required><br>
-                        <button type="submit">Update</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in inventory_items %}
+                <tr>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[2] }}</td>
+                    <td>${{ item[3] }}</td>
+                    <td>
+                        <form action="/delete_item/{{ item[0] }}" method="POST" class="inline">
+                            <button type="submit">Delete</button>
+                        </form>
+                        <form action="/update_item/{{ item[0] }}" method="POST" class="inline">
+                            <input type="number" id="quantity" name="quantity" value="{{ item[2] }}" required>
+                            <input type="number" id="price" name="price" step="0.01" value="{{ item[3] }}" required>
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <h2>Add Item</h2>
     <form action="/add_item" method="POST">
         <label for="item_name">Item Name:</label>
-        <input type="text" id="item_name" name="item_name" required><br>
+        <input type="text" id="item_name" name="item_name" required>
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" required><br>
+        <input type="number" id="quantity" name="quantity" required>
         <label for="price">Price:</label>
-        <input type="number" id="price" name="price" step="0.01" required><br>
+        <input type="number" id="price" name="price" step="0.01" required>
         <button type="submit">Add Item</button>
     </form>
     <form action="/logout" method="POST">

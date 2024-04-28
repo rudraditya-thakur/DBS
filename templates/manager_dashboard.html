@@ -4,34 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 80%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .statistics,
+        .add-user {
+            padding: 20px;
+        }
+
+        .statistics h2,
+        .add-user h2 {
+            color: #595959;
+            margin-bottom: 20px;
+        }
+
+        .statistics p {
+            color: #595959;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            color: #595959;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .form-group button {
+            background-color: #5c3d8a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #4a2f66;
+        }
+
+        .logout-btn {
+            margin-top: 20px;
+        }
+
+        .logout-btn button {
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .logout-btn button:hover {
+            background-color: #c72634;
+        }
+    </style>
 </head>
 <body>
-    <h1>Manager Dashboard</h1>
-    <h2>Statistics</h2>
-    <p>Pending Orders: {{ pending_orders }}</p>
-    <p>Completed Orders: {{ completed_orders }}</p>
-    <p>Delivered Orders: {{ delivered_orders }}</p>
-    <p>Total Earnings: ${{ total_earnings }}</p>
+    <div class="container">
+        <div class="statistics">
+            <h2>Statistics</h2>
+            <p>Pending Orders: {{ pending_orders }}</p>
+            <p>Completed Orders: {{ completed_orders }}</p>
+            <p>Delivered Orders: {{ delivered_orders }}</p>
+            <p>Total Earnings: ${{ total_earnings }}</p>
+        </div>
 
-    <h2>Add New User</h2>
-    <form action="{{ url_for('add_user') }}" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <label for="role">Role:</label>
-        <select id="role" name="role" required>
-            <option value="customer">Customer</option>
-            <option value="chef">Chef</option>
-            <option value="waiter">Waiter</option>
-            <option value="supplier">Supplier</option>
-            <!-- Add more role options as needed -->
-        </select><br><br>
-        <button type="submit">Add User</button>
-    </form>
+        <div class="add-user">
+            <h2>Add New User</h2>
+            <form action="{{ url_for('add_user') }}" method="POST">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role" required>
+                        <option value="customer">Customer</option>
+                        <option value="chef">Chef</option>
+                        <option value="waiter">Waiter</option>
+                        <option value="supplier">Supplier</option>
+                        <!-- Add more role options as needed -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Add User</button>
+                </div>
+            </form>
+        </div>
 
-    <form action="/logout" method="POST">
-        <button type="submit">Logout</button>
-    </form>
+        <div class="logout-btn">
+            <form action="/logout" method="POST">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

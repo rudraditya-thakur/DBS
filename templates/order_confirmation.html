@@ -3,10 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        p {
+            color: #595959;
+            margin-bottom: 20px;
+        }
+
+        a, button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        a:hover, button:hover {
+            background-color: #43A047;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    Success
+    <h1>Success</h1>
+    <p>Your action was successful!</p>
     <a href="/menu">Back To Menu</a>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
 </body>
 </html>

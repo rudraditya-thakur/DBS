@@ -4,20 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #595959;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        li {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin: 5px 0;
+        }
+
+        button {
+            background: linear-gradient(45deg, #4CAF50, #2196F3);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #43A047, #1E88E5);
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: linear-gradient(45deg, #5c3d8a, #4a2f66);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background 0.3s;
+        }
+
+        a:hover {
+            background: linear-gradient(45deg, #543b80, #422c5c);
+        }
+
+        form {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h2>Menu</h2>
     <ul>
         {% for item in menu %}
         <li>
-            {{ item.item_name }} - ${{ item.price }}
-            <p>{{item.description}}</p>
-            <p>{{item.category}}</p>
-            <form action="/add_to_cart" method="POST" style="display: inline;">
+            <h3>{{ item.item_name }}</h3>
+            <p><strong>Price:</strong> ${{ item.price }}</p>
+            <p><strong>Description:</strong> {{ item.description }}</p>
+            <p><strong>Category:</strong> {{ item.category }}</p>
+            <form action="/add_to_cart" method="POST">
                 <input type="hidden" name="item_id" value="{{ item.id }}">
                 <button type="submit">Add to Cart</button>
             </form>
-            <form action="/remove_from_cart" method="POST" style="display: inline;">
+            <form action="/remove_from_cart" method="POST">
                 <input type="hidden" name="item_id" value="{{ item.id }}">
                 <button type="submit">Remove from Cart</button>
             </form>

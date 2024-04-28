@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
+from plyer import notification
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -225,6 +226,12 @@ def complete_order(order_id):
     # Update the status of the order to complete in the database
     cursor.execute('UPDATE orders SET status = "complete" WHERE id = ?', (order_id,))
     conn.commit()
+    # notification.notify(
+    #     title= "Order Completed: {}".format(order_id),
+    #     message="The Customer can pickup there order",
+    #     app_icon=None,
+    #     timeout=5
+    # )
 
     # Close the database connection
     conn.close()
@@ -293,6 +300,8 @@ def manager_dashboard():
     # Calculate total earnings
     cursor.execute('SELECT SUM(price) FROM orders')
     total_earnings = cursor.fetchone()[0]
+    if total_earnings == None:
+        total_earnings = 0
 
     # Close the database connection
     conn.close()
